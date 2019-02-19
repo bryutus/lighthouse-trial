@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Carbon\Carbon;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -31,5 +33,27 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Get the user's created at in asia/tokyo timezone.
+     *
+     * @param string $value
+     * @return string
+     */
+    public function getCreatedAtAttribute(string $value): Carbon
+    {
+        return (new Carbon($value))->setTimezone('Asia/Tokyo');
+    }
+
+    /**
+     * Get the user's updated at in asia/tokyo timezone.
+     *
+     * @param string $value
+     * @return string
+     */
+    public function getUpdatedAtAttribute(string $value): Carbon
+    {
+        return (new Carbon($value))->setTimezone('Asia/Tokyo');
     }
 }
