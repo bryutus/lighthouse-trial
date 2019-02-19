@@ -7,6 +7,8 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 type Query {
     posts: [Post!]! @all
     post(id: Int! @eq): Post @find
+    users: [User!]! @all
+    user(id: ID! @eq): User @find
 }
 
 type Mutation {
@@ -30,10 +32,10 @@ type Mutation {
 type User {
     id: ID!
     name: String!
-    email: String!
+    mailaddress: String! @rename(attribute: "email")
     password: String!
-    created_at: DateTime!
-    updated_at: DateTime!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
     posts: [Post] @hasMany
 }
 
